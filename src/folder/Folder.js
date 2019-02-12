@@ -9,10 +9,10 @@ class Folder extends Component {
             <div>
             <header>Noteful</header>
             <Sidebar>
-                <Route path='/' component={Folder} />
+                <Route path='/' component={Sidebar} />
             </Sidebar>
             <Main>
-                <Route path='/note' component={Note}/>
+                <Route path='/note' component={Main}/>
             </Main>
         </div>
         )
