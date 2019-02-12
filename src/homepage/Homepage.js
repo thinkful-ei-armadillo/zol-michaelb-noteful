@@ -6,21 +6,28 @@ import Sidebar from '../mainComponent/Sidebar';
 
 class Homepage extends Component {
     render(){
-        console.log(this.props.store.folders);
+        console.log(this.props.store);
+    
         return (
             <div>
                 <header>Noteful</header>
-                <Sidebar>
-                    <Route path='/' 
-                    component={Sidebar} 
+                <Route  
+                    exact
+                    path='/' 
                     render = {() =>
-                    <Sidebar folders={this.props.store.folders}/>}/>
-                    <Route path='/folder/:folder-id' component={Sidebar}/>
-                </Sidebar>
-                <Main>
-                    <Route path='/note' component={Main}/>
-                    <Route path='/note/:note-id' component={Main}/>
-                </Main>
+                        <Sidebar folders={this.props.store.folders} setFolderId={this.props.setFolderId}/>
+                    }
+                />
+                {/* <Route path='/:folder-id'  component={Sidebar}/> */}
+                <Route 
+                    exact
+                    path='/' 
+                    render = {() =>
+                        <Main notes={this.props.store.notes}/>
+                    }
+                />
+                {/* <Route path='/:note-id' component={Main}/> */}
+                
             </div>
         )
     }

@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 class Sidebar extends Component {
    
 
-    handleClickedFolder(){
-        console.log('folder clicked');
+    handleClickedFolder(id){
+        console.log('folder clicked, and id is', id);
+        // this.props.setFolderId(id)
     }
     render(){
-        // const { id, name } = this.props.folders
         console.log(this.props.folders);
+        const folders = this.props.folders.map((folder) => {
+            return (
+                <Link to={'/folder'}>
+                    <li 
+                        id={folder.id} 
+                        key={folder.id} 
+                        onClick={(e) => this.handleClickedFolder(e.currentTarget.id)}>
+                        {folder.name}
+                    </li>
+                </Link>
+            )
+        })
         return (
             <div>
                 <ul>
-                    <li onClick={this.handleClickedFolder}>Folder 1</li>
-                    <li>Folder 2</li>
-                    <li>Folder 3</li>
+                    {folders}
                 </ul>
                 <div className='add-folder'>Add Folder</div>
             </div>

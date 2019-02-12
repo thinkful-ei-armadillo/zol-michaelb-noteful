@@ -13,21 +13,47 @@ class App extends Component {
  constructor(props){
    super(props)
    this.state = {
-     store: {...this.props.store}
+     store: {...this.props.store},
+     folderId: '',
+     isFolderSelected: false,
+     noteId: ''
    }
 } 
 
+setFolderId = (id) =>{
+  this.setState({
+    folderId: id,
+    isFolderSelected: true
+  })
+}
+
+setNoteId = (id) =>{
+  this.setState({
+    noteId: id
+  })
+}
   render() {
+    const { store } = this.state.store
     return (
       <div className="App">
         <Switch>
-          <Route path='/'
-          exact  
-          render = {() => 
-          <Homepage 
-          store={this.state.store}/>}/>
-          <Route path='/folder' component={Folder} />
-          <Route path='/note' component={Note} />
+          <Route  path='/'
+                  exact  
+                  render = {() => 
+                    <Homepage store={store}/>
+                  }
+          />
+          <Route 
+                  path='/folder/:folderId' 
+                  render = {() => <Folder 
+                    store={store}
+                    setFolderId={this.setFolderId}
+                    folderId = {this.folderId} 
+                    isFolderSelected = {this.isFolderSelected}
+                    />
+                  } 
+          />
+          <Route path='/note/:folderId' component={Note} />
           <Route component={Notfound} />
         </Switch>
       </div>
